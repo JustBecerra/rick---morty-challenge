@@ -6,6 +6,7 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -14,6 +15,8 @@ interface CharacterProps {
   character2: charactersType | null;
   setCharacter1: Dispatch<SetStateAction<charactersType | null>>;
   setCharacter2: Dispatch<SetStateAction<charactersType | null>>;
+  characters: charactersType[];
+  setCharacters: Dispatch<SetStateAction<charactersType[]>>;
 }
 
 const CharacterContext = createContext<CharacterProps>({} as CharacterProps);
@@ -27,6 +30,21 @@ export const CharacterProvider: React.FC<CharacterProviderProps> = ({
 }) => {
   const [character1, setCharacter1] = useState<charactersType | null>(null);
   const [character2, setCharacter2] = useState<charactersType | null>(null);
+  const [characters, setCharacters] = useState<charactersType[]>([]);
+  const fetchCharacters = async () => {
+    try {
+      const response = await fetch("/api/characters");
+      const data = await response.json();
+      setCharacters(data);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    fetchCharacters();
+  }, []);
   return (
     <CharacterContext.Provider
       value={{
@@ -34,6 +52,8 @@ export const CharacterProvider: React.FC<CharacterProviderProps> = ({
         setCharacter1,
         character2,
         setCharacter2,
+        characters,
+        setCharacters,
       }}
     >
       {children}
@@ -42,13 +62,21 @@ export const CharacterProvider: React.FC<CharacterProviderProps> = ({
 };
 
 export const useCharacterContext = (): CharacterProps => {
-  const { character1, setCharacter1, character2, setCharacter2 } =
-    useContext(CharacterContext);
+  const {
+    character1,
+    setCharacter1,
+    character2,
+    setCharacter2,
+    characters,
+    setCharacters,
+  } = useContext(CharacterContext);
   return {
     character1,
     setCharacter1,
     character2,
     setCharacter2,
+    characters,
+    setCharacters,
   };
 };
 
