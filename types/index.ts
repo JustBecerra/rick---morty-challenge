@@ -3,7 +3,7 @@ type originandlocationType = {
   url: string;
 };
 
-type charactersType = {
+export type charactersType = {
   id: number;
   name: string;
   status: string;
