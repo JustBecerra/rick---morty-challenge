@@ -1,8 +1,8 @@
-import { charactersType } from "@/types";
+import { CharactersType } from "@/types";
 import { CharacterCard } from "../CharacterCard";
 
 type CharactersProps = {
-  characters: charactersType[];
+  characters: CharactersType[];
 };
 
 export const CharacterList = (props: CharactersProps) => {

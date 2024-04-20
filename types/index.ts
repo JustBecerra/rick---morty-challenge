@@ -3,7 +3,7 @@ type originandlocationType = {
   url: string;
 };
 
-export type charactersType = {
+export type CharactersType = {
   id: number;
   name: string;
   status: string;
@@ -14,6 +14,16 @@ export type charactersType = {
   location: originandlocationType;
   image: string;
   episode: string[];
+  url: string;
+  created: string;
+};
+
+export type EpisodesType = {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  characters: string[];
   url: string;
   created: string;
 };
