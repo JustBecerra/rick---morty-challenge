@@ -1,5 +1,6 @@
 "use client";
 import { CharacterList } from "@/components/CharacterList";
+import { EpisodeCard } from "@/components/EpisodeCard";
 import { Header } from "@/components/Header";
 import CharacterContext from "@/context/CharacterContext";
 import { useContext } from "react";
@@ -12,6 +13,11 @@ export default function Home() {
       <div className="flex w-[80%] h-[50%] gap-4">
         <CharacterList characters={characters} />
         <CharacterList characters={characters} />
+      </div>
+      <div className="flex w-[100%] h-[50%] justify-center gap-4">
+        <EpisodeCard />
+        <EpisodeCard />
+        <EpisodeCard />
       </div>
     </main>
   );
