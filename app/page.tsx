@@ -6,7 +6,8 @@ import RandMContext from "@/context/RandMContext";
 import { useContext } from "react";
 
 export default function Home() {
-  const { characters } = useContext(RandMContext);
+  const { characters, episodes } = useContext(RandMContext);
+  console.log({ episodes });
   return (
     <main className="flex min-h-screen flex-col items-center gap-4">
       <Header />
@@ -15,9 +16,9 @@ export default function Home() {
         <CharacterList characters={characters} />
       </div>
       <div className="flex w-[100%] h-[50%] justify-center gap-4">
-        <EpisodeCard />
-        <EpisodeCard />
-        <EpisodeCard />
+        <EpisodeCard episodes={episodes} />
+        <EpisodeCard episodes={episodes} />
+        <EpisodeCard episodes={episodes} />
       </div>
     </main>
   );
