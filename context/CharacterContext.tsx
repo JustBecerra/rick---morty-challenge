@@ -35,7 +35,7 @@ export const CharacterProvider: React.FC<CharacterProviderProps> = ({
     try {
       const response = await fetch("/api/characters");
       const data = await response.json();
-      setCharacters(data);
+      setCharacters(data.results);
     } catch (error) {
       console.error("Failed to fetch data:", error);
       return [];

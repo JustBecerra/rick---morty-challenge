@@ -1,14 +1,23 @@
-"use client";
-import CharacterContext from "@/context/CharacterContext";
+import { charactersType } from "@/types";
 import { CharacterCard } from "../CharacterCard";
-import { useContext } from "react";
 
-export const CharacterList = () => {
-  const { characters } = useContext(CharacterContext);
-  console.log({ characters });
+type CharactersProps = {
+  characters: charactersType[];
+};
+
+export const CharacterList = (props: CharactersProps) => {
+  const { characters } = props;
   return (
-    <div className="w-[50%] h-[40%] border-2 border-gray-50">
-      <CharacterCard />
+    <div className="w-[50%] h-[40%] border-2 border-gray-50 flex flex-col items-center">
+      {characters.map((char, key) => (
+        <CharacterCard
+          key={key}
+          name={char.name}
+          species={char.species}
+          image={char.image}
+          status={char.status}
+        />
+      ))}
     </div>
   );
 };
