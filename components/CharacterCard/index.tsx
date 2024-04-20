@@ -10,15 +10,15 @@ type CardProps = {
 export const CharacterCard = (props: CardProps) => {
   const { name, image, species, status } = props;
   return (
-    <div className="flex w-[200px] h-[200px] border-2 border-gray-50">
+    <div className="flex w-[45%] h-[150px] border-2 border-gray-50 m-2">
       <div className="w-[50%] h-[100%] relative">
         <Image src={image} alt="" fill />
       </div>
-      <div>
-        <h1>{name}</h1>
-        <div className="flex">
-          <h3>{species}</h3>
-          <h3>{status}</h3>
+      <div className="flex flex-col items-center justify-center w-[50%]">
+        <h1 className="text-sm text-balance text-center">{name}</h1>
+        <div className="flex gap-2">
+          <h3 className="text-xs">{species}</h3>
+          <h3 className="text-xs">{status}</h3>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { useContext } from "react";
 export default function Home() {
   const { characters } = useContext(CharacterContext);
   return (
-    <main className="flex min-h-screen flex-col items-center">
+    <main className="flex min-h-screen flex-col items-center gap-4">
       <Header />
       <div className="flex w-[80%] h-[50%] gap-4">
         <CharacterList characters={characters} />
