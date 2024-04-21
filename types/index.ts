@@ -27,3 +27,13 @@ export type EpisodesType = {
   url: string;
   created: string;
 };
+
+export type ApiResponseFormat<T> = {
+  info: {
+    count: number;
+    next: string;
+    pages: number;
+    prev: string | null;
+  };
+  results: T[];
+};

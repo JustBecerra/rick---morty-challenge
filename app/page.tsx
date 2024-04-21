@@ -20,7 +20,10 @@ export default function Home() {
   });
 
   const {
-    characters,
+    charactersList1,
+    charactersList2,
+    setCharactersList1,
+    setCharactersList2,
     episodes,
     setCharacter1,
     setCharacter2,
@@ -71,12 +74,14 @@ export default function Home() {
       <Header />
       <div className="flex w-[80%] h-[50%] gap-4">
         <CharacterList
-          characters={characters}
+          characters={charactersList1}
+          setCharacters={setCharactersList1}
           chosenCharacter={character1}
           setCharacter={setCharacter1}
         />
         <CharacterList
-          characters={characters}
+          characters={charactersList2}
+          setCharacters={setCharactersList2}
           chosenCharacter={character2}
           setCharacter={setCharacter2}
         />
