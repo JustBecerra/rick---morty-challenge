@@ -83,9 +83,18 @@ export default function Home() {
       </div>
       {character1 && character2 && (
         <div className="flex w-[100%] h-[50%] justify-center gap-4">
-          <EpisodeCard episodes={renderEpisodes.episodes1} />
-          <EpisodeCard episodes={renderEpisodes.sharedEpisodes} />
-          <EpisodeCard episodes={renderEpisodes.episodes2} />
+          <EpisodeCard
+            episodes={renderEpisodes.episodes1}
+            title={`Character #${character1.id} - Only Episodes`}
+          />
+          <EpisodeCard
+            episodes={renderEpisodes.sharedEpisodes}
+            title={`Characters #${character1.id} & #${character2.id} - Shared Episodes`}
+          />
+          <EpisodeCard
+            episodes={renderEpisodes.episodes2}
+            title={`Character #${character2.id} - Only Episodes`}
+          />
         </div>
       )}
     </main>
