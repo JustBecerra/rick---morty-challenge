@@ -1,7 +1,9 @@
 const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
   const res = await fetch(
-    `https://rickandmortyapi.com/api/episode?page=${searchParams.get("number")}`
+    `https://rickandmortyapi.com/api/character/?page=${searchParams.get(
+      "number"
+    )}`
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");

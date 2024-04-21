@@ -1,4 +1,5 @@
 "use client";
+import { GET as GETCHARACTER } from "@/app/api/characters/route";
 import { CharactersType, EpisodesType } from "@/types";
 import {
   Dispatch,
@@ -15,10 +16,13 @@ interface RandMProps {
   character2: CharactersType | null;
   setCharacter1: Dispatch<SetStateAction<CharactersType | null>>;
   setCharacter2: Dispatch<SetStateAction<CharactersType | null>>;
-  characters: CharactersType[];
-  setCharacters: Dispatch<SetStateAction<CharactersType[]>>;
+  charactersList1: CharactersType[];
+  charactersList2: CharactersType[];
+  setCharactersList1: Dispatch<SetStateAction<CharactersType[]>>;
+  setCharactersList2: Dispatch<SetStateAction<CharactersType[]>>;
   episodes: EpisodesType[];
   setEpisodes: Dispatch<SetStateAction<EpisodesType[]>>;
+  pages: number;
 }
 
 const RandMContext = createContext<RandMProps>({} as RandMProps);
@@ -30,33 +34,51 @@ type RandMProviderProps = {
 export const RandMProvider: React.FC<RandMProviderProps> = ({ children }) => {
   const [character1, setCharacter1] = useState<CharactersType | null>(null);
   const [character2, setCharacter2] = useState<CharactersType | null>(null);
-  const [characters, setCharacters] = useState<CharactersType[]>([]);
+  const [charactersList1, setCharactersList1] = useState<CharactersType[]>([]);
+  const [charactersList2, setCharactersList2] = useState<CharactersType[]>([]);
+  const [pages, setPages] = useState(1);
   const [episodes, setEpisodes] = useState<EpisodesType[]>([]);
   const fetchCharacters = async () => {
     try {
-      const response = await fetch("/api/characters");
+      const response = await GETCHARACTER();
       const data = await response.json();
-      setCharacters(data.results);
+      setCharactersList1(data.results);
+      setCharactersList2(data.results);
+      setPages(data.info.pages);
     } catch (error) {
       console.error("Failed to fetch data:", error);
       return [];
     }
   };
 
-  const fetchEpisodes = async () => {
+  const fetchEpisodes = async (page: number) => {
     try {
-      const response = await fetch("/api/episodes");
+      const response = await fetch(`api/episodes?number=${page}`);
       const data = await response.json();
-      setEpisodes(data.results);
+      return data;
     } catch (error) {
       console.error("Failed to fetch data:", error);
       return [];
     }
+  };
+
+  const fetchAllEpisodes = async () => {
+    let allEpisodes: EpisodesType[] = [];
+    let page = 1;
+    let episodes = [];
+
+    while (page <= 3) {
+      episodes = await fetchEpisodes(page);
+      allEpisodes = [...allEpisodes, ...episodes.results];
+      page++;
+    }
+
+    setEpisodes(allEpisodes);
   };
 
   useEffect(() => {
     fetchCharacters();
-    fetchEpisodes();
+    fetchAllEpisodes();
   }, []);
   return (
     <RandMContext.Provider
@@ -65,10 +87,13 @@ export const RandMProvider: React.FC<RandMProviderProps> = ({ children }) => {
         setCharacter1,
         character2,
         setCharacter2,
-        characters,
-        setCharacters,
+        charactersList1,
+        charactersList2,
+        setCharactersList1,
+        setCharactersList2,
         episodes,
         setEpisodes,
+        pages,
       }}
     >
       {children}
@@ -82,20 +107,26 @@ export const useRandMContext = (): RandMProps => {
     setCharacter1,
     character2,
     setCharacter2,
-    characters,
-    setCharacters,
+    charactersList1,
+    charactersList2,
+    setCharactersList1,
+    setCharactersList2,
     episodes,
     setEpisodes,
+    pages,
   } = useContext(RandMContext);
   return {
     character1,
     setCharacter1,
     character2,
     setCharacter2,
-    characters,
-    setCharacters,
+    charactersList1,
+    charactersList2,
+    setCharactersList1,
+    setCharactersList2,
     episodes,
     setEpisodes,
+    pages,
   };
 };
 

@@ -20,7 +20,10 @@ export default function Home() {
   });
 
   const {
-    characters,
+    charactersList1,
+    charactersList2,
+    setCharactersList1,
+    setCharactersList2,
     episodes,
     setCharacter1,
     setCharacter2,
@@ -29,23 +32,21 @@ export default function Home() {
   } = useContext(RandMContext);
 
   useEffect(() => {
-    const filteredIds1 = character1?.episode.map((ep) =>
-      Number(ep[ep.length - 1])
+    const filteredEpisodes1 = episodes.filter((ep) =>
+      character1?.episode.some((episodeId) => {
+        const lastIndex = episodeId.lastIndexOf("/");
+        const result = episodeId.substring(lastIndex + 1);
+        return Number(result) === ep.id;
+      })
     );
-    const filteredEpisodes1 = episodes.filter((ep) => {
-      if (filteredIds1?.includes(ep.id)) {
-        return ep;
-      }
-    });
 
-    const filteredIds2 = character2?.episode.map((ep) =>
-      Number(ep[ep.length - 1])
+    const filteredEpisodes2 = episodes.filter((ep) =>
+      character2?.episode.some((episodeId) => {
+        const lastIndex = episodeId.lastIndexOf("/");
+        const result = episodeId.substring(lastIndex + 1);
+        return Number(result) === ep.id;
+      })
     );
-    const filteredEpisodes2 = episodes.filter((ep) => {
-      if (filteredIds2?.includes(ep.id)) {
-        return ep;
-      }
-    });
 
     const sharedEpisodes = filteredEpisodes1.filter((ep1) =>
       filteredEpisodes2.some((ep2) => ep1.id === ep2.id)
@@ -71,21 +72,32 @@ export default function Home() {
       <Header />
       <div className="flex w-[80%] h-[50%] gap-4">
         <CharacterList
-          characters={characters}
+          characters={charactersList1}
+          setCharacters={setCharactersList1}
           chosenCharacter={character1}
           setCharacter={setCharacter1}
         />
         <CharacterList
-          characters={characters}
+          characters={charactersList2}
+          setCharacters={setCharactersList2}
           chosenCharacter={character2}
           setCharacter={setCharacter2}
         />
       </div>
       {character1 && character2 && (
         <div className="flex w-[100%] h-[50%] justify-center gap-4">
-          <EpisodeCard episodes={renderEpisodes.episodes1} />
-          <EpisodeCard episodes={renderEpisodes.sharedEpisodes} />
-          <EpisodeCard episodes={renderEpisodes.episodes2} />
+          <EpisodeCard
+            episodes={renderEpisodes.episodes1}
+            title={`Character #${character1.id} - Only Episodes`}
+          />
+          <EpisodeCard
+            episodes={renderEpisodes.sharedEpisodes}
+            title={`Characters #${character1.id} & #${character2.id} - Shared Episodes`}
+          />
+          <EpisodeCard
+            episodes={renderEpisodes.episodes2}
+            title={`Character #${character2.id} - Only Episodes`}
+          />
         </div>
       )}
     </main>
