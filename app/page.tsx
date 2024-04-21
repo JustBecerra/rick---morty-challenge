@@ -6,10 +6,19 @@ import RandMContext from "@/context/RandMContext";
 import { EpisodesType } from "@/types";
 import { useContext, useEffect, useState } from "react";
 
+interface renderEpisodesType {
+  episodes1: EpisodesType[];
+  episodes2: EpisodesType[];
+  sharedEpisodes: EpisodesType[];
+}
+
 export default function Home() {
-  const [sharedEpisodes, setSharedEpisodes] = useState<EpisodesType[]>([]);
-  const [episodes1, setEpisodes1] = useState<EpisodesType[]>([]);
-  const [episodes2, setEpisodes2] = useState<EpisodesType[]>([]);
+  const [renderEpisodes, setRenderEpisodes] = useState<renderEpisodesType>({
+    episodes1: [],
+    episodes2: [],
+    sharedEpisodes: [],
+  });
+
   const {
     characters,
     episodes,
@@ -18,6 +27,7 @@ export default function Home() {
     character1,
     character2,
   } = useContext(RandMContext);
+
   useEffect(() => {
     const filteredIds1 = character1?.episode.map((ep) =>
       Number(ep[ep.length - 1])
@@ -27,7 +37,6 @@ export default function Home() {
         return ep;
       }
     });
-    setEpisodes1(filteredEpisodes1);
 
     const filteredIds2 = character2?.episode.map((ep) =>
       Number(ep[ep.length - 1])
@@ -37,8 +46,25 @@ export default function Home() {
         return ep;
       }
     });
-    setEpisodes2(filteredEpisodes2);
-  }, [character1, character2, episodes]);
+
+    const sharedEpisodes = filteredEpisodes1.filter((ep1) =>
+      filteredEpisodes2.some((ep2) => ep1.id === ep2.id)
+    );
+
+    const filteredEpisodes1WithoutShared = filteredEpisodes1.filter(
+      (ep1) => !sharedEpisodes.some((sharedEp) => sharedEp.id === ep1.id)
+    );
+
+    const filteredEpisodes2WithoutShared = filteredEpisodes2.filter(
+      (ep2) => !sharedEpisodes.some((sharedEp) => sharedEp.id === ep2.id)
+    );
+    setRenderEpisodes((prev) => ({
+      ...prev,
+      episodes1: filteredEpisodes1WithoutShared,
+      episodes2: filteredEpisodes2WithoutShared,
+      sharedEpisodes: sharedEpisodes,
+    }));
+  }, [character1, character2]);
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-4">
@@ -55,11 +81,13 @@ export default function Home() {
           setCharacter={setCharacter2}
         />
       </div>
-      <div className="flex w-[100%] h-[50%] justify-center gap-4">
-        <EpisodeCard episodes={episodes1} />
-        <EpisodeCard episodes={episodes} />
-        <EpisodeCard episodes={episodes2} />
-      </div>
+      {character1 && character2 && (
+        <div className="flex w-[100%] h-[50%] justify-center gap-4">
+          <EpisodeCard episodes={renderEpisodes.episodes1} />
+          <EpisodeCard episodes={renderEpisodes.sharedEpisodes} />
+          <EpisodeCard episodes={renderEpisodes.episodes2} />
+        </div>
+      )}
     </main>
   );
 }
