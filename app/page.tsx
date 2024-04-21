@@ -32,23 +32,21 @@ export default function Home() {
   } = useContext(RandMContext);
 
   useEffect(() => {
-    const filteredIds1 = character1?.episode.map((ep) =>
-      Number(ep[ep.length - 1])
+    const filteredEpisodes1 = episodes.filter((ep) =>
+      character1?.episode.some((episodeId) => {
+        const lastIndex = episodeId.lastIndexOf("/");
+        const result = episodeId.substring(lastIndex + 1);
+        return Number(result) === ep.id;
+      })
     );
-    const filteredEpisodes1 = episodes.filter((ep) => {
-      if (filteredIds1?.includes(ep.id)) {
-        return ep;
-      }
-    });
 
-    const filteredIds2 = character2?.episode.map((ep) =>
-      Number(ep[ep.length - 1])
+    const filteredEpisodes2 = episodes.filter((ep) =>
+      character2?.episode.some((episodeId) => {
+        const lastIndex = episodeId.lastIndexOf("/");
+        const result = episodeId.substring(lastIndex + 1);
+        return Number(result) === ep.id;
+      })
     );
-    const filteredEpisodes2 = episodes.filter((ep) => {
-      if (filteredIds2?.includes(ep.id)) {
-        return ep;
-      }
-    });
 
     const sharedEpisodes = filteredEpisodes1.filter((ep1) =>
       filteredEpisodes2.some((ep2) => ep1.id === ep2.id)

@@ -1,6 +1,5 @@
 "use client";
 import { GET as GETCHARACTER } from "@/app/api/characters/route";
-import { GET as GETEPISODE } from "@/app/api/episodes/route";
 import { CharactersType, EpisodesType } from "@/types";
 import {
   Dispatch,
@@ -52,35 +51,34 @@ export const RandMProvider: React.FC<RandMProviderProps> = ({ children }) => {
     }
   };
 
-  const fetchEpisodes = async () => {
+  const fetchEpisodes = async (page: number) => {
     try {
-      const response = await GETEPISODE();
+      const response = await fetch(`api/episodes?number=${page}`);
       const data = await response.json();
-      setEpisodes(data.results);
+      return data;
     } catch (error) {
       console.error("Failed to fetch data:", error);
       return [];
     }
   };
 
-  // const fetchAllEpisodes = async () => {
-  //   let allCharacters = [];
-  //   let page = 1;
-  //   let characters = await getCharacters(page);
+  const fetchAllEpisodes = async () => {
+    let allEpisodes: EpisodesType[] = [];
+    let page = 1;
+    let episodes = [];
 
-  //   // Fetch characters page by page until there are no more results
-  //   while (characters.length > 0) {
-  //     allCharacters = [...allCharacters, ...characters];
-  //     page++;
-  //     characters = await getCharacters(page);
-  //   }
+    while (page <= 3) {
+      episodes = await fetchEpisodes(page);
+      allEpisodes = [...allEpisodes, ...episodes.results];
+      page++;
+    }
 
-  //   return allCharacters;
-  // };
+    setEpisodes(allEpisodes);
+  };
 
   useEffect(() => {
     fetchCharacters();
-    fetchEpisodes();
+    fetchAllEpisodes();
   }, []);
   return (
     <RandMContext.Provider
