@@ -3,7 +3,6 @@ import { CharacterCard } from "../CharacterCard";
 import { Dispatch, SetStateAction, useContext } from "react";
 import RandMContext from "@/context/RandMContext";
 import Pagination from "@mui/material/Pagination/Pagination";
-import { GET } from "@/app/api/page/route";
 
 type CharactersProps = {
   characters: CharactersType[];
@@ -18,7 +17,7 @@ export const CharacterList = (props: CharactersProps) => {
 
   const handlePagination = async (e: React.ChangeEvent<any>, value: number) => {
     e.preventDefault();
-    const response = await GET(value);
+    const response = await fetch(`api/page?number=${value}`);
     const data = await response.json();
     setCharacters(data.results);
   };

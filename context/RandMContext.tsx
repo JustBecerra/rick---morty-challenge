@@ -63,6 +63,21 @@ export const RandMProvider: React.FC<RandMProviderProps> = ({ children }) => {
     }
   };
 
+  // const fetchAllEpisodes = async () => {
+  //   let allCharacters = [];
+  //   let page = 1;
+  //   let characters = await getCharacters(page);
+
+  //   // Fetch characters page by page until there are no more results
+  //   while (characters.length > 0) {
+  //     allCharacters = [...allCharacters, ...characters];
+  //     page++;
+  //     characters = await getCharacters(page);
+  //   }
+
+  //   return allCharacters;
+  // };
+
   useEffect(() => {
     fetchCharacters();
     fetchEpisodes();
