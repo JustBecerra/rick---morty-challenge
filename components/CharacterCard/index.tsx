@@ -1,6 +1,9 @@
 import { CharactersType } from "@/types";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
+import HelpIcon from "@mui/icons-material/Help";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 
 type CardProps = {
   char: CharactersType;
@@ -19,6 +22,16 @@ export const CharacterCard = (props: CardProps) => {
       setCharacter(props.char);
     }
   };
+
+  const renderIcon = () => {
+    if (status === "Alive") {
+      return <FavoriteIcon />;
+    } else if (status === "Dead") {
+      return <HeartBrokenIcon />;
+    } else {
+      return <HelpIcon />;
+    }
+  };
   return (
     <div
       className={`flex w-[90%] h-[100px] md:w-[45%] rounded-lg md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
@@ -29,7 +42,7 @@ export const CharacterCard = (props: CardProps) => {
       <div className="w-[30%] md:w-[50%] h-[100%] relative">
         <Image src={image} alt="" fill />
       </div>
-      <div className="flex flex-col items-center justify-center w-[50%]">
+      <div className="flex flex-col items-center justify-center w-[70%] md:w-[50%]">
         <h1
           className={`text-sm text-balance text-center ${
             chosenCharacter && chosenCharacter.id === id && "text-black"
@@ -37,7 +50,8 @@ export const CharacterCard = (props: CardProps) => {
         >
           {name}
         </h1>
-        <div className="flex gap-2 w-[100%] justify-center">
+        <div className="flex gap-2 w-[100%] justify-center items-center">
+          <h3>{renderIcon()}</h3>
           <h3
             className={`text-xs text-center ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
