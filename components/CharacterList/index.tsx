@@ -22,7 +22,7 @@ export const CharacterList = (props: CharactersProps) => {
     setCharacters(data.results);
   };
   return (
-    <div className="w-[50%] h-[50vh] border-2 border-gray-50 flex  items-center justify-center flex-wrap overflow-auto">
+    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex  items-center justify-center flex-wrap overflow-auto">
       {characters.map((char, key) => (
         <CharacterCard
           key={key}
@@ -31,12 +31,13 @@ export const CharacterList = (props: CharactersProps) => {
           setCharacter={setCharacter}
         />
       ))}
-      <div className="flex items-center justify-center h-[8%] w-[80%] bg-zinc-50 rounded-xl mb-2">
+      <div className="flex items-center justify-center h-[12%] w-[90%] md:h-[8%] md:w-[50%] bg-zinc-50 rounded-xl mb-2">
         <Pagination
           count={pages}
           variant="outlined"
           shape="rounded"
           color="primary"
+          size="small"
           onChange={handlePagination}
         />
       </div>

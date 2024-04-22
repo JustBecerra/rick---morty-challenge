@@ -70,7 +70,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-4">
       <Header />
-      <div className="flex w-[80%] h-[50%] gap-4">
+      <div className="flex w-[80%] h-[50%] gap-4 flex-col md:flex-row justify-center items-center">
         <CharacterList
           characters={charactersList1}
           setCharacters={setCharactersList1}
@@ -85,7 +85,7 @@ export default function Home() {
         />
       </div>
       {character1 && character2 && (
-        <div className="flex w-[100%] h-[50%] justify-center gap-4">
+        <div className="flex w-[100%] mb-4 md:mb-0 h-[50%] justify-center gap-4 flex-col-reverse md:flex-row justify-center items-center">
           <EpisodeCard
             episodes={renderEpisodes.episodes1}
             title={`Character #${character1.id} - Only Episodes`}
