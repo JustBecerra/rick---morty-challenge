@@ -21,12 +21,12 @@ export const CharacterCard = (props: CardProps) => {
   };
   return (
     <div
-      className={`flex w-[45%] h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
+      className={`flex w-[90%] h-[100px] md:w-[45%] md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
         chosenCharacter && chosenCharacter.id === id && "bg-gray-50"
       }`}
       onClick={characterSelection}
     >
-      <div className="w-[50%] h-[100%] relative">
+      <div className="w-[30%] md:w-[50%] h-[100%] relative">
         <Image src={image} alt="" fill />
       </div>
       <div className="flex flex-col items-center justify-center w-[50%]">
