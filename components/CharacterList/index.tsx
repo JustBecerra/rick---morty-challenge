@@ -23,7 +23,7 @@ export const CharacterList = (props: CharactersProps) => {
     setCharacters(data.results);
   };
   return (
-    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto">
+    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto mb-4 md:mb-0">
       {characters.length === 0 ? (
         <CircularProgress />
       ) : (
