@@ -21,7 +21,7 @@ export const CharacterCard = (props: CardProps) => {
   };
   return (
     <div
-      className={`flex w-[90%] h-[100px] md:w-[45%] md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
+      className={`flex w-[90%] h-[100px] md:w-[45%] rounded-lg md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
         chosenCharacter && chosenCharacter.id === id && "bg-gray-50"
       }`}
       onClick={characterSelection}

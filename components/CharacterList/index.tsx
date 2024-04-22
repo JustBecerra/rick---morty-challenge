@@ -3,6 +3,7 @@ import { CharacterCard } from "../CharacterCard";
 import { Dispatch, SetStateAction, useContext } from "react";
 import RandMContext from "@/context/RandMContext";
 import Pagination from "@mui/material/Pagination/Pagination";
+import { CircularProgress } from "@mui/material";
 
 type CharactersProps = {
   characters: CharactersType[];
@@ -22,25 +23,33 @@ export const CharacterList = (props: CharactersProps) => {
     setCharacters(data.results);
   };
   return (
-    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex  items-center justify-center flex-wrap overflow-auto">
-      {characters.map((char, key) => (
-        <CharacterCard
-          key={key}
-          char={char}
-          chosenCharacter={chosenCharacter}
-          setCharacter={setCharacter}
-        />
-      ))}
-      <div className="flex items-center justify-center h-[12%] w-[90%] md:h-[8%] md:w-[50%] bg-zinc-50 rounded-xl mb-2">
-        <Pagination
-          count={pages}
-          variant="outlined"
-          shape="rounded"
-          color="primary"
-          size="small"
-          onChange={handlePagination}
-        />
-      </div>
+    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto mb-4 md:mb-0">
+      {characters.length === 0 ? (
+        <CircularProgress />
+      ) : (
+        characters.map((char, key) => (
+          <CharacterCard
+            key={key}
+            char={char}
+            chosenCharacter={chosenCharacter}
+            setCharacter={setCharacter}
+          />
+        ))
+      )}
+      {characters.length > 0 ? (
+        <div className="flex items-center justify-center h-[12%] w-[90%] md:h-[8%] md:w-[50%] bg-zinc-50 rounded-xl mb-2">
+          <Pagination
+            count={pages}
+            variant="outlined"
+            shape="rounded"
+            color="primary"
+            size="small"
+            onChange={handlePagination}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
