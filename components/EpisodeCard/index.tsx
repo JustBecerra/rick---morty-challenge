@@ -8,7 +8,7 @@ type episodesProps = {
 export const EpisodeCard = (props: episodesProps) => {
   const { episodes, title } = props;
   return (
-    <div className="flex flex-col w-[90%] md:w-[30%] h-[300px] border-2 border-gray-50">
+    <div className="flex flex-col w-[90%] rounded-lg md:w-[30%] h-[300px] border-2 border-gray-50">
       <div className="border-2 border-gray-50">
         <h1>{title}</h1>
       </div>
