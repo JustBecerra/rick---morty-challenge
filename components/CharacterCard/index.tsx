@@ -37,16 +37,16 @@ export const CharacterCard = (props: CardProps) => {
         >
           {name}
         </h1>
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-[100%] justify-center">
           <h3
-            className={`text-xs ${
+            className={`text-xs text-center ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
             }`}
           >
             {species}
           </h3>
           <h3
-            className={`text-xs ${
+            className={`text-xs mr-2 ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
             }`}
           >
