@@ -85,7 +85,7 @@ export default function Home() {
         />
       </div>
       {character1 && character2 && (
-        <div className="flex w-[100%] h-[50%] justify-center gap-4 flex-col md:flex-row justify-center items-center">
+        <div className="flex w-[100%] mb-4 md:mb-0 h-[50%] justify-center gap-4 flex-col-reverse md:flex-row justify-center items-center">
           <EpisodeCard
             episodes={renderEpisodes.episodes1}
             title={`Character #${character1.id} - Only Episodes`}
