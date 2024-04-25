@@ -37,7 +37,7 @@ export const CharacterList = (props: CharactersProps) => {
         ))
       )}
       {characters.length > 0 && (
-        <div className="flex sticky bottom-2 items-center justify-center h-[12%] w-[90%] lg:h-[16%] xl:h-[12%] lg:w-[70%] 2xl:h-[8%] 2xl:w-[50%] bg-zinc-50 rounded-xl mb-2">
+        <div className="flex sticky bottom-2 items-center justify-center h-[16%] sm:h-[10%] md:h-[12%] md:w-[90%] w-[90%] lg:h-[16%] xl:h-[12%] lg:w-[70%] 2xl:h-[10%] 2xl:w-[50%] bg-zinc-50 rounded-xl mb-2">
           <Pagination
             count={pages}
             variant="outlined"

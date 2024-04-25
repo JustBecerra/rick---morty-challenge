@@ -34,7 +34,7 @@ export const CharacterCard = (props: CardProps) => {
   };
   return (
     <div
-      className={`flex w-[90%] h-[100px] md:w-[45%] rounded-lg md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
+      className={`flex w-[90%] h-[100px] xl:w-[45%] rounded-lg md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
         chosenCharacter && chosenCharacter.id === id && "bg-gray-50"
       }`}
       onClick={characterSelection}
@@ -44,23 +44,23 @@ export const CharacterCard = (props: CardProps) => {
       </div>
       <div className="flex flex-col items-center justify-center w-[70%] md:w-[50%]">
         <h1
-          className={`text-sm text-balance text-center ${
+          className={`text-sm md:text-xs text-wrap text-balance text-center ${
             chosenCharacter && chosenCharacter.id === id && "text-black"
           }`}
         >
           {name}
         </h1>
-        <div className="flex gap-2 w-[100%] justify-center items-center">
-          <h3>{renderIcon()}</h3>
+        <div className="flex gap-2 w-[100%]  justify-center items-center">
+          <div className="">{renderIcon()}</div>
           <h3
-            className={`text-xs text-center ${
+            className={`text-xs text-center text-wrap ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
             }`}
           >
             {species}
           </h3>
           <h3
-            className={`text-xs mr-2 ${
+            className={`text-xs text-center mr-2 ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
             }`}
           >
