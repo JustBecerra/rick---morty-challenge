@@ -23,8 +23,10 @@ interface RandMProps {
   episodes: EpisodesType[];
   setEpisodes: Dispatch<SetStateAction<EpisodesType[]>>;
   pages: number;
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  loader1: boolean;
+  setLoader1: Dispatch<SetStateAction<boolean>>;
+  loader2: boolean;
+  setLoader2: Dispatch<SetStateAction<boolean>>;
 }
 
 const RandMContext = createContext<RandMProps>({} as RandMProps);
@@ -38,18 +40,17 @@ export const RandMProvider: React.FC<RandMProviderProps> = ({ children }) => {
   const [character2, setCharacter2] = useState<CharactersType | null>(null);
   const [charactersList1, setCharactersList1] = useState<CharactersType[]>([]);
   const [charactersList2, setCharactersList2] = useState<CharactersType[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loader1, setLoader1] = useState(false);
+  const [loader2, setLoader2] = useState(false);
   const [pages, setPages] = useState(1);
   const [episodes, setEpisodes] = useState<EpisodesType[]>([]);
   const fetchCharacters = async () => {
     try {
-      setLoading(true);
       const response = await GETCHARACTER();
       const data = await response.json();
       setCharactersList1(data.results);
       setCharactersList2(data.results);
       setPages(data.info.pages);
-      setLoading(false);
     } catch (error) {
       console.error("Failed to fetch data:", error);
       return [];
@@ -99,8 +100,10 @@ export const RandMProvider: React.FC<RandMProviderProps> = ({ children }) => {
         episodes,
         setEpisodes,
         pages,
-        loading,
-        setLoading,
+        loader1,
+        setLoader1,
+        loader2,
+        setLoader2,
       }}
     >
       {children}
@@ -121,8 +124,10 @@ export const useRandMContext = (): RandMProps => {
     episodes,
     setEpisodes,
     pages,
-    loading,
-    setLoading,
+    loader1,
+    setLoader1,
+    loader2,
+    setLoader2,
   } = useContext(RandMContext);
   return {
     character1,
@@ -136,8 +141,10 @@ export const useRandMContext = (): RandMProps => {
     episodes,
     setEpisodes,
     pages,
-    loading,
-    setLoading,
+    loader1,
+    setLoader1,
+    loader2,
+    setLoader2,
   };
 };
 

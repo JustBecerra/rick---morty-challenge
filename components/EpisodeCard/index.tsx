@@ -12,9 +12,9 @@ export const EpisodeCard = (props: episodesProps) => {
       <div className="border-2 border-gray-50">
         <h1>{title}</h1>
       </div>
-      <div className="flex flex-col overflow-auto">
+      <div className="flex flex-col overflow-auto p-0.5">
         {episodes.map((episode, key) => (
-          <h2 className="text-sm italic" key={key}>
+          <h2 className="text-sm italic m-0.5" key={key}>
             {episode.episode} - {episode.name} - {episode.air_date}
           </h2>
         ))}

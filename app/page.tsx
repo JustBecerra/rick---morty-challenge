@@ -29,6 +29,10 @@ export default function Home() {
     setCharacter2,
     character1,
     character2,
+    loader1,
+    loader2,
+    setLoader1,
+    setLoader2,
   } = useContext(RandMContext);
 
   useEffect(() => {
@@ -70,18 +74,22 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center gap-4">
       <Header />
-      <div className="flex w-[80%] h-[50%] gap-4 flex-col md:flex-row justify-center items-center">
+      <div className="flex w-[100%] md:w-[100%] h-[50%] gap-4 flex-col md:flex-row justify-center items-center">
         <CharacterList
           characters={charactersList1}
           setCharacters={setCharactersList1}
           chosenCharacter={character1}
           setCharacter={setCharacter1}
+          loader={loader1}
+          setLoader={setLoader1}
         />
         <CharacterList
           characters={charactersList2}
           setCharacters={setCharactersList2}
           chosenCharacter={character2}
           setCharacter={setCharacter2}
+          loader={loader2}
+          setLoader={setLoader2}
         />
       </div>
       {character1 && character2 && (
