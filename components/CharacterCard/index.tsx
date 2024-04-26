@@ -25,16 +25,16 @@ export const CharacterCard = (props: CardProps) => {
 
   const renderIcon = () => {
     if (status === "Alive") {
-      return <FavoriteIcon />;
+      return <FavoriteIcon fontSize="small" />;
     } else if (status === "Dead") {
-      return <HeartBrokenIcon />;
+      return <HeartBrokenIcon fontSize="small" />;
     } else {
-      return <HelpIcon />;
+      return <HelpIcon fontSize="small" />;
     }
   };
   return (
     <div
-      className={`flex w-[90%] h-[100px] md:w-[45%] rounded-lg md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
+      className={`flex w-[90%] h-[100px] xl:w-[45%] rounded-lg md:h-[150px] border-2 border-gray-50 m-2 cursor-pointer ${
         chosenCharacter && chosenCharacter.id === id && "bg-gray-50"
       }`}
       onClick={characterSelection}
@@ -42,29 +42,33 @@ export const CharacterCard = (props: CardProps) => {
       <div className="w-[30%] md:w-[50%] h-[100%] relative">
         <Image src={image} alt="" fill />
       </div>
-      <div className="flex flex-col items-center justify-center w-[70%] md:w-[50%]">
+      <div className="flex flex-col gap-2 items-center justify-center w-[70%] md:w-[50%]">
         <h1
-          className={`text-sm text-balance text-center ${
+          className={`text-sm md:text-xs text-wrap text-balance text-center ${
             chosenCharacter && chosenCharacter.id === id && "text-black"
           }`}
         >
           {name}
         </h1>
-        <div className="flex gap-2 w-[100%] justify-center items-center">
-          <h3>{renderIcon()}</h3>
+        <div className="flex gap-2 w-[100%] flex-col  justify-center items-center">
+          <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center items-center">
+              {renderIcon()}
+            </div>
+            <h3
+              className={`text-xs text-center mr-2 ${
+                chosenCharacter && chosenCharacter.id === id && "text-black"
+              }`}
+            >
+              {status}
+            </h3>
+          </div>
           <h3
-            className={`text-xs text-center ${
+            className={`text-xs text-center text-wrap ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
             }`}
           >
             {species}
-          </h3>
-          <h3
-            className={`text-xs mr-2 ${
-              chosenCharacter && chosenCharacter.id === id && "text-black"
-            }`}
-          >
-            {status}
           </h3>
         </div>
       </div>

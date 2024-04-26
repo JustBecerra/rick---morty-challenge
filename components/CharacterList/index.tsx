@@ -13,19 +13,24 @@ type CharactersProps = {
 };
 
 export const CharacterList = (props: CharactersProps) => {
-  const { pages } = useContext(RandMContext);
+  const { pages, loading, setLoading } = useContext(RandMContext);
   const { characters, setCharacters, setCharacter, chosenCharacter } = props;
 
   const handlePagination = async (e: React.ChangeEvent<any>, value: number) => {
     e.preventDefault();
+    setLoading(true);
     const response = await fetch(`api/page?number=${value}`);
     const data = await response.json();
     setCharacters(data.results);
+    setLoading(false);
   };
   return (
-    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto mb-4 md:mb-0">
-      {characters.length === 0 ? (
-        <CircularProgress />
+    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto mb-4 md:mb-0 relative">
+      {loading || characters.length === 0 ? (
+        <div className="flex flex-col justify-center items-center gap-2">
+          <CircularProgress />
+          <h2>Loading...</h2>
+        </div>
       ) : (
         characters.map((char, key) => (
           <CharacterCard
@@ -36,8 +41,8 @@ export const CharacterList = (props: CharactersProps) => {
           />
         ))
       )}
-      {characters.length > 0 ? (
-        <div className="flex items-center justify-center h-[12%] w-[90%] md:h-[8%] md:w-[50%] bg-zinc-50 rounded-xl mb-2">
+      {characters.length > 0 && !loading && (
+        <div className="flex sticky bottom-2 items-center justify-center h-fit w-fit p-2 bg-zinc-50 rounded-xl mb-2">
           <Pagination
             count={pages}
             variant="outlined"
@@ -47,8 +52,6 @@ export const CharacterList = (props: CharactersProps) => {
             onChange={handlePagination}
           />
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );
