@@ -25,7 +25,7 @@ export const CharacterList = (props: CharactersProps) => {
     setLoading(false);
   };
   return (
-    <div className="w-[100%] h-[50vh] md:w-[50%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto mb-4 md:mb-0 relative">
+    <div className="w-[90%] h-[50vh] md:w-[45.5%] border-2 border-gray-50 flex rounded-lg items-center justify-center flex-wrap overflow-auto mb-4 md:mb-0 relative">
       {loading || characters.length === 0 ? (
         <div className="flex flex-col justify-center items-center gap-2">
           <CircularProgress />
