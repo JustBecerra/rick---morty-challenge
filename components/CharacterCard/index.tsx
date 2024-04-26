@@ -25,11 +25,11 @@ export const CharacterCard = (props: CardProps) => {
 
   const renderIcon = () => {
     if (status === "Alive") {
-      return <FavoriteIcon />;
+      return <FavoriteIcon fontSize="small" />;
     } else if (status === "Dead") {
-      return <HeartBrokenIcon />;
+      return <HeartBrokenIcon fontSize="small" />;
     } else {
-      return <HelpIcon />;
+      return <HelpIcon fontSize="small" />;
     }
   };
   return (
@@ -42,7 +42,7 @@ export const CharacterCard = (props: CardProps) => {
       <div className="w-[30%] md:w-[50%] h-[100%] relative">
         <Image src={image} alt="" fill />
       </div>
-      <div className="flex flex-col items-center justify-center w-[70%] md:w-[50%]">
+      <div className="flex flex-col gap-2 items-center justify-center w-[70%] md:w-[50%]">
         <h1
           className={`text-sm md:text-xs text-wrap text-balance text-center ${
             chosenCharacter && chosenCharacter.id === id && "text-black"
@@ -50,21 +50,25 @@ export const CharacterCard = (props: CardProps) => {
         >
           {name}
         </h1>
-        <div className="flex gap-2 w-[100%]  justify-center items-center">
-          <div className="">{renderIcon()}</div>
+        <div className="flex gap-2 w-[100%] flex-col  justify-center items-center">
+          <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center items-center">
+              {renderIcon()}
+            </div>
+            <h3
+              className={`text-xs text-center mr-2 ${
+                chosenCharacter && chosenCharacter.id === id && "text-black"
+              }`}
+            >
+              {status}
+            </h3>
+          </div>
           <h3
             className={`text-xs text-center text-wrap ${
               chosenCharacter && chosenCharacter.id === id && "text-black"
             }`}
           >
             {species}
-          </h3>
-          <h3
-            className={`text-xs text-center mr-2 ${
-              chosenCharacter && chosenCharacter.id === id && "text-black"
-            }`}
-          >
-            {status}
           </h3>
         </div>
       </div>
