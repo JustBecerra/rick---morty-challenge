@@ -39,8 +39,13 @@ export const CharacterCard = (props: CardProps) => {
       }`}
       onClick={characterSelection}
     >
-      <div className="w-[30%] md:w-[50%] h-[100%] relative">
-        <Image src={image} alt="" fill />
+      <div className="w-[30%] md:w-[50%] h-[100%] relative overflow-hidden">
+        <Image
+          src={image}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
       </div>
       <div className="flex flex-col gap-2 items-center justify-center w-[70%] md:w-[50%]">
         <h1
